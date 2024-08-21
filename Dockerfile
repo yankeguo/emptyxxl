@@ -1,4 +1,4 @@
-FROM alpine:3.19 AS builder
+FROM alpine:3.20 AS builder
 
 WORKDIR /opt/emptyxxl
 

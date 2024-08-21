@@ -1,8 +1,6 @@
-#!/bin/sh
-
 DIR_BASE="$(dirname "$0")"
 
-JAVA="${BASE_DIR}/jre/bin/java"
+JAVA="${DIR_BASE}/jre/bin/java"
 
 JAVA_OPTS="${EMPTYXXL_JAVA_OPTS} -server -Djava.security.egd=file:/dev/./urandom"
 
