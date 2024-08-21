@@ -14,7 +14,7 @@
 
     <groupId>com.yankeguo</groupId>
     <artifactId>emptyxxl</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 
     <name>${project.artifactId}</name>
     <description>A empty xxl-job executor for Shell or other GLUE actions</description>
