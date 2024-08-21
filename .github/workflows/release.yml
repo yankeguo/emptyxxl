@@ -63,6 +63,20 @@ jobs:
             type=semver,pattern=install-{{major}}.{{minor}}
             type=semver,pattern=install-{{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
 
+      - name: docker meta for kube
+        id: kube_meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |-
+            ghcr.io/${{ github.repository }}
+            ${{ github.repository }}
+          tags: |-
+            type=raw,value=kube,enable={{is_default_branch}}
+            type=raw,value=kube-pr,enable=${{ github.event_name == 'pull_request' }}
+            type=semver,pattern=kube-{{version}}
+            type=semver,pattern=kube-{{major}}.{{minor}}
+            type=semver,pattern=kube-{{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
+
       - name: docker build and push for install
         uses: docker/build-push-action@v3
         with:
@@ -74,3 +88,15 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.install_meta.outputs.tags }}
           labels: ${{ steps.install_meta.outputs.labels }}
+
+      - name: docker build and push for kube
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          pull: true
+          file: Dockerfile.kube
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.kube_meta.outputs.tags }}
+          labels: ${{ steps.kube_meta.outputs.labels }}

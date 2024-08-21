@@ -1,0 +1,17 @@
+FROM eclipse-temurin:8u422-b05-jre-noble
+
+RUN apt-get update && apt-get install -y curl tini && rm -rf /var/lib/apt/lists/*
+
+RUN curl -LO "https://dl.k8s.io/release/v1.28.13/bin/linux/amd64/kubectl" && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin/kubectl
+
+ENTRYPOINT [ "/bin/tini", "--" ]
+
+WORKDIR /app
+
+ADD target/emptyxxl.jar emptyxxl.jar
+
+ADD docker/kube/run.sh run.sh
+
+CMD ["./run.sh"]

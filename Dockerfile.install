@@ -10,6 +10,6 @@ RUN apk add --no-cache curl && \
 
 ADD target/emptyxxl.jar emptyxxl.jar
 
-ADD emptyxxl.sh emptyxxl.sh
+ADD docker/install/emptyxxl.sh emptyxxl.sh
 
 CMD ["cp", "-rf", "/opt/emptyxxl", "/target/"]
