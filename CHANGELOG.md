@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.2.0 - 2024-08-21
+#### Build system
+- using minit and render properties file - (1e0983d) - GUO YANKE
+- add image for kube - (710720c) - GUO YANKE
+- split step for install image - (08f06b3) - GUO YANKE
+#### Miscellaneous Chores
+- update version in pom.xml - (8702f5f) - GUO YANKE
+
+- - -
+
 ## v0.1.0 - 2024-08-21
 #### Build system
 - update github workflows - (a3b5397) - GUO YANKE
