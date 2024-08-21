@@ -1,0 +1,9 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "cSpell.words": [
+        "appname",
+        "emptyxxl",
+        "logpath",
+        "logretentiondays"
+    ]
+}
