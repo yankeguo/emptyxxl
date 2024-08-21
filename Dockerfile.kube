@@ -1,17 +1,32 @@
+FROM ghcr.io/yankeguo/minit:1.14 AS util-minit
+
 FROM eclipse-temurin:8u422-b05-jre-noble
 
-RUN apt-get update && apt-get install -y curl tini && rm -rf /var/lib/apt/lists/*
+COPY --from=util-minit /minit /minit
+
+ENV MINIT_LOG_DIR=none
+ENTRYPOINT [ "/minit", "--" ]
+
+# install kubectl
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 RUN curl -LO "https://dl.k8s.io/release/v1.28.13/bin/linux/amd64/kubectl" && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
 
-ENTRYPOINT [ "/bin/tini", "--" ]
-
-WORKDIR /app
+# setup app
+WORKDIR /opt/emptyxxl
 
 ADD target/emptyxxl.jar emptyxxl.jar
+ADD docker/kube/emptyxxl.sh emptyxxl.sh
+ADD docker/kube/xxl-job-executor.properties xxl-job-executor.properties.template
+ADD docker/kube/emptyxxl.yaml /etc/minit.d/emptyxxl.yaml
 
-ADD docker/kube/run.sh run.sh
-
-CMD ["./run.sh"]
+ENV EMPTYXXL_ADMIN_ADDRESSES="http://localhost:8080"
+ENV EMPTYXXL_ACCESS_TOKEN=""
+ENV EMPTYXXL_APP_NAME="emptyxxl"
+ENV EMPTYXXL_ADDRESS=""
+ENV EMPTYXXL_IP="0.0.0.0"
+ENV EMPTYXXL_PORT="9999"
+ENV EMPTYXXL_LOG_PATH="logs"
+ENV EMPTYXXL_LOG_RENTENTION_DAYS="3"

@@ -1,0 +1,10 @@
+name: emptyxxl-config
+kind: render
+files:
+  - /opt/emptyxxl/xxl-job-executor.properties.template:/opt/emptyxxl/xxl-job-executor.properties
+---
+name: emptyxxl
+kind: daemon
+dir: /opt/emptyxxl
+command:
+  - ./emptyxxl.sh
