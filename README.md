@@ -4,7 +4,7 @@ A empty xxl-job executor for Shell or other GLUE actions
 
 ## Configuration
 
-Put a configuration file `xxl-job-executor.properties` in the same directory as the jar file.
+Put a configuration file `xxl-job-executor.properties` in the current working directory.
 
 ```properties
 xxl.job.admin.addresses=http://localhost:8080/xxl-job-admin
@@ -15,6 +15,17 @@ xxl.job.executor.ip=0.0.0.0
 xxl.job.executor.port=9999
 xxl.job.executor.logpath=/data/applogs/emptyxxl
 xxl.job.executor.logretentiondays=3
+```
+
+You can also supply with java system properties.
+
+```shell
+java -Dxxl.job.admin.addresses=http://localhost:8080/xxl-job-admin \
+     -Dxxl.job.accessToken=hello \
+     -Dxxl.job.executor.appname=emptyxxl \
+     -Dxxl.job.executor.address=0.0.0.0 \
+     ... \
+     -jar emptyxxl.jar
 ```
 
 ## Credits
