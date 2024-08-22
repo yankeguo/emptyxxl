@@ -6,7 +6,7 @@ files:
 name: emptyxxl-install
 kind: once
 command:
-  - cp
-  - -rf
-  - /opt/emptyxxl
-  - /target
+  - rsync
+  - -a
+  - /opt/emptyxxl/
+  - /target/
