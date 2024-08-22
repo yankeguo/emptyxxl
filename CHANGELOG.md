@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.3.0 - 2024-08-22
+#### Build system
+- using rsync for installation image - (48ef2b0) - GUO YANKE
+- using minit for docker image of installation - (25ac6ca) - GUO YANKE
+- update minit version - (7a9431f) - GUO YANKE
+
+- - -
+
 ## v0.2.0 - 2024-08-21
 #### Build system
 - using minit and render properties file - (1e0983d) - GUO YANKE
