@@ -3,23 +3,22 @@ FROM ghcr.io/yankeguo/minit:1.15.2 AS util-minit
 FROM eclipse-temurin:8u422-b05-jre-noble
 
 COPY --from=util-minit /minit /minit
-
 ENTRYPOINT [ "/minit", "--" ]
 
-# install kubectl
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-
-RUN curl -LO "https://dl.k8s.io/release/v1.28.13/bin/linux/amd64/kubectl" && \
+RUN apt-get update && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/* && \
+    curl -sSL -o kubectl "https://dl.k8s.io/release/v1.28.13/bin/linux/amd64/kubectl" && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
 
-# setup app
 WORKDIR /opt/emptyxxl
 
+ADD docker/emptyxxl.yaml /etc/minit.d/emptyxxl.yaml
+
 ADD target/emptyxxl.jar emptyxxl.jar
-ADD docker/kube/emptyxxl.sh emptyxxl.sh
-ADD docker/kube/xxl-job-executor.properties xxl-job-executor.properties.template
-ADD docker/kube/emptyxxl.yaml /etc/minit.d/emptyxxl.yaml
+ADD docker/emptyxxl.sh emptyxxl.sh
+ADD docker/xxl-job-executor.properties.template xxl-job-executor.properties.template
 
 ENV EMPTYXXL_ADMIN_ADDRESSES="http://localhost:8080"
 ENV EMPTYXXL_ACCESS_TOKEN=""

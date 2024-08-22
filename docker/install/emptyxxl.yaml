@@ -1,0 +1,12 @@
+name: emptyxxl-config
+kind: render
+files:
+  - /opt/emptyxxl/xxl-job-executor.properties.template:/opt/emptyxxl/xxl-job-executor.properties
+---
+name: emptyxxl-install
+kind: once
+command:
+  - cp
+  - -rf
+  - /opt/emptyxxl
+  - /target
