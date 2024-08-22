@@ -1,10 +1,9 @@
-FROM ghcr.io/yankeguo/minit:1.14 AS util-minit
+FROM ghcr.io/yankeguo/minit:1.15.2 AS util-minit
 
 FROM eclipse-temurin:8u422-b05-jre-noble
 
 COPY --from=util-minit /minit /minit
 
-ENV MINIT_LOG_DIR=none
 ENTRYPOINT [ "/minit", "--" ]
 
 # install kubectl
